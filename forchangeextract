@@ -18,6 +18,16 @@ var treeLossVis = {
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 
 
+var level2loss = treeLoss.reduceRegion({
+      reducer: ee.Reducer.sum(),
+      geometry: level2bound,
+      maxPixels: 1e10,
+      bestEffort: true
+    });
+
+print(level2loss)
+
+
 // Uncomment this to visualize tree canopy cover
 Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
 // Plot boundaries
