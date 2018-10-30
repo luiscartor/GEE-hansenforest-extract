@@ -4,7 +4,7 @@
 // Extracts forest loss pixels for each year and region of interest
 
 // 1. Data
-// Calls Hansen forest loss dataset
+// Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 var treeCanopyCover = hansen.select('lossyear');
 var treeCanopyCoverVis = {
