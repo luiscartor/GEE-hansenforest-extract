@@ -25,7 +25,12 @@ var level2loss = treeLoss.reduceRegion({
       bestEffort: true
     });
 
-print(level2loss)
+Export.table.toDrive({
+  collection:level2loss,
+  description:'INDcounts',
+  fileFormat:'CSV'
+})
+
 
 
 // Uncomment this to visualize tree canopy cover
