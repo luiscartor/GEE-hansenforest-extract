@@ -6,8 +6,8 @@
 // 1. Data
 // Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
-var treeCanopyCover = hansen.select('lossyear');
-var treeCanopyCoverVis = {
+var treeLoss = hansen.select('lossyear');
+var treeLossLossVis = {
   min: 0.0,
   max: 17.0,
   palette: ['080a02', '080a02', '080a02', '106e12', '37a930', '03ff17'],
@@ -18,11 +18,12 @@ var treeCanopyCoverVis = {
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 
 
-
 // Uncomment this to visualize tree canopy cover
-Map.addLayer(treeCanopyCover, treeCanopyCoverVis, 'Tree Canopy Cover');
+Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
 // Plot boundaries
 Map.addLayer(level2bound)
+
+
 
 
 
