@@ -19,7 +19,7 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 
 
 var level2loss = treeLoss.reduceRegion({
-      reducer: ee.Reducer.countDistinct(),
+      reducer: ee.Reducer.count(),
       geometry: level2bound,
       maxPixels: 1e10,
       bestEffort: true
@@ -27,7 +27,7 @@ var level2loss = treeLoss.reduceRegion({
 
 Export.table.toDrive({
   collection:level2loss,
-  description:'INDcountscountdistinct',
+  description:'INDcountscount',
   fileFormat:'CSV'
 })
 
