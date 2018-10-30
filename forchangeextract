@@ -16,7 +16,7 @@ var treeCanopyCoverVis = {
 
 
 // Reads boundaries dataset
-var level2bound = ee.FeatureCollection("GADM36_IDN_2");
+var level2bound = ee.FeatureCollection("gadm36_IDN_2");
 
 
 // Plot boundaries
