@@ -19,8 +19,10 @@ var treeCanopyCoverVis = {
 var level2bound = ee.FeatureCollection("GADM36_IDN_2");
 
 
-
+// Plot boundaries
+Map.addLayer(level2bound)
 // Uncomment this to visualize tree canopy cover
 Map.addLayer(treeCanopyCover, treeCanopyCoverVis, 'Tree Canopy Cover');
+
 
 
