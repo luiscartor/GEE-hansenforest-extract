@@ -25,10 +25,12 @@ var geometry = /* color: #98ff00 */ee.Geometry.Polygon(
 // and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
 // 2001-2017) 
 
-// 1. Data
-// Pulls Hansen forest loss dataset
+// 1. Read and Subset Data
+// 1.1 Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
+// Selects band with loss year (value of zero is no loss)
 var treeLoss = hansen.select('lossyear');
+// Defines visualization parameters
 var treeLossVis = {
   min: 0.0,
   max: 17.0,
@@ -36,12 +38,14 @@ var treeLossVis = {
 };
 
 
-// Reads boundaries dataset
+// 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 //var filtered = level2bound.filterBounds(geometry3);
+// Subsets to country: IDN. Comment if extracting for the whole dataset
 var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
-
+// 2. Analysis
+// Creats histogram of number of pixels per year of loss (or zero for no loss)
 var result = filtered.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer: ee.Reducer.fixedHistogram(0,18,18),
@@ -51,20 +55,25 @@ var result = filtered.map(function(feature){
   }))
 })
 
-print(result)
+// 2. Outputs
+// 2.1 Print result, if small enough
+//print(result)
 
+// 2.2 Export to drive as a .csv
 Export.table.toDrive({
   collection:result,
-  description:'geom3test',
+  // Edit dataset name
+  description:'level2_forestloss_IDN',
   fileFormat:'CSV',
+  // Subset output features to reduce export time
   selectors: (['GID_2','lossyear'])
 })
 
 
-
-// Uncomment this to visualize tree canopy cover
+// 2.3 Data visualization
+// Plot tree loss dataset
 Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
-// Plot boundaries
+// Plot boundaries with extracted data
 Map.addLayer(filtered)
 
 
