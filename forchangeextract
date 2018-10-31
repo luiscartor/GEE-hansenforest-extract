@@ -46,8 +46,8 @@ var result = level2bound.map(function(feature){
 
 Export.table.toDrive({
   collection:result,
-  description:'globalcountshistogram',
-  fileFormat:'CSV'
+  description:'globalcountshistogrampoly',
+  fileFormat:'SHP'
 })
 
 
