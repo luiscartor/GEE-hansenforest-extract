@@ -35,7 +35,7 @@ var filtered = level2bound.filterBounds(geometry2);
 
 var level2loss = treeLoss.reduceRegion({
       //reducer: ee.Reducer.fixedHistogram(0,18,18),
-      reducer: ee.Reducer.sum(),
+      //reducer: ee.Reducer.sum(),
       geometry: filtered,
       maxPixels: 1e12
       //bestEffort: true
@@ -43,11 +43,11 @@ var level2loss = treeLoss.reduceRegion({
 
 print(level2loss)
 
-Export.table.toDrive({
-  collection:level2loss,
-  description:'INDcountshistogram1',
-  fileFormat:'CSV'
-})
+//Export.table.toDrive({
+//  collection:level2loss,
+//  description:'INDcountshistogram1',
+//  fileFormat:'CSV'
+//})
 
 
 
