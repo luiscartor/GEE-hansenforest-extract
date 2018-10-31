@@ -40,7 +40,7 @@ var filtered = level2bound.filterBounds(geometry2);
 var result = filtered.map(function(feature){
   return feature.set(treeLoss.eq(0).reduceRegion({
     //reducer: ee.Reducer.fixedHistogram(0,18,18),
-    reducer: ee.Reducer.sum(),
+    reducer: ee.Reducer.count(),
     geometry:feature.geometry(), 
     maxPixels:1e12,
   }))
