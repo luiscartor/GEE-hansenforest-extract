@@ -38,8 +38,8 @@ var treeLossVis = {
 
 // Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
-var filtered = level2bound.filterBounds(geometry3);
-
+//var filtered = level2bound.filterBounds(geometry3);
+var level2_IND = level2bound.filter(ee.Filter.eq('GID_0', 'IND'));
 
 
 var result = filtered.map(function(feature){
