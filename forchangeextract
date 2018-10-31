@@ -43,7 +43,7 @@ var level2loss = treeLoss.reduceRegion({
 
 var result = filtered.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
-    reducer:'fixedHistogram(0,18,18)',
+    reducer: ee.Reducer.fixedHistogram(0,18,18),
     geometry:feature.geometry(), //is the .geometry helping or hurting?
     maxPixels:1e12,
   }))
