@@ -60,7 +60,7 @@ print(result)
 
 
 // Uncomment this to visualize tree canopy cover
-Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
+//Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
 // Plot boundaries
 Map.addLayer(filtered)
 
