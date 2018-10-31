@@ -51,7 +51,7 @@ var result = filtered.map(function(feature){
   }))
 })
 
-//print(result)
+print(result)
 
 Export.table.toDrive({
   collection:result,
