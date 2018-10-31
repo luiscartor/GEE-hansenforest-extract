@@ -37,7 +37,7 @@ Export.table.toDrive({
   collection:level2loss,
   description:'INDcountshistogram1',
   fileFormat:'CSV'
-//})
+})
 
 
 
