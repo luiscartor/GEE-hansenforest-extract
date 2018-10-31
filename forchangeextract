@@ -1,9 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = /* color: #d63000 */ee.Geometry.Polygon(
-        [[[115.00229079252688, -1.8148059133425922],
-          [115.19455153471438, -1.8299044741876154],
-          [115.19455153471438, -1.667931675791483],
-          [114.99679762846438, -1.6720497989667944]]]);
+var geometry = /* color: #98ff00 */ee.Geometry.Polygon(
+        [[[115.22572416788546, -1.83869426059422],
+          [115.22575635439364, -1.8398738245232875],
+          [115.22697944170443, -1.8399059944377034],
+          [115.22697944170443, -1.838640644033473]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 // forchangeextract
 // 30 October 2018
