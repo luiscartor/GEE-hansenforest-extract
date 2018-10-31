@@ -34,10 +34,10 @@ var filtered = level2bound.filterBounds(geometry2);
 
 
 
-var result = filtered.map(function(feature){
+var result = level2bound.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer: ee.Reducer.fixedHistogram(0,18,18),
-    geometry:feature.geometry(), //is the .geometry helping or hurting?
+    geometry:feature.geometry(), 
     maxPixels:1e12,
   }))
 })
@@ -46,7 +46,7 @@ print(result)
 
 Export.table.toDrive({
   collection:result,
-  description:'indtest',
+  description:'level2treelosshist',
   fileFormat:'CSV',
   selectors: (['GID_2','lossyear'])
 })
