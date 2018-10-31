@@ -52,7 +52,7 @@ var result = filtered.map(function(feature){
 print(result)
 
 Export.table.toDrive({
-  collection:level2loss,
+  collection:result,
   description:'INDcountshistogram1',
   fileFormat:'CSV'
 })
