@@ -36,7 +36,7 @@ var filtered = level2bound.filterBounds(geometry2);
 var level2loss = treeLoss.reduceRegion({
       reducer: ee.Reducer.fixedHistogram(0,18,18),
       //reducer: ee.Reducer.sum(),
-      geometry: filtered,
+      geometry: filtered.geometry(),
       maxPixels: 1e12
       //bestEffort: true
     });
@@ -49,7 +49,7 @@ var result = filtered.map(function(feature){
   }))
 })
 
-print(result)
+print(level2loss)
 
 //Export.table.toDrive({
 //  collection:level2loss,
