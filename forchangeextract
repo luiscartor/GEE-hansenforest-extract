@@ -31,7 +31,7 @@ var treeLossVis = {
 // Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 var filtered = level2bound.filterBounds(geometry2);
-print(level2bound)
+
 
 var level2loss = treeLoss.reduceRegion({
       reducer: ee.Reducer.fixedHistogram(0,18,18),
@@ -41,11 +41,11 @@ var level2loss = treeLoss.reduceRegion({
     });
 
 print(level2loss)
-//Export.table.toDrive({
-//  collection:level2loss,
-//  description:'INDcountshistogram1',
-//  fileFormat:'CSV'
-//})
+Export.table.toDrive({
+  collection:level2loss,
+  description:'INDcountshistogram1',
+  fileFormat:'CSV'
+})
 
 
 
