@@ -46,7 +46,7 @@ print(result)
 
 Export.table.toDrive({
   collection:result,
-  description:'globalcountshistogrampoly',
+  description:'indtest',
   fileFormat:'SHP',
   selectors: ('GID_2','lossyear')
 })
