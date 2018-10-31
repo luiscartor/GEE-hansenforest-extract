@@ -27,7 +27,7 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 
 var level2loss = treeLoss.reduceRegion({
       reducer: ee.Reducer.fixedHistogram(0,18,18),
-      geometry: geometry,
+      geometry: level2bound,
       //maxPixels: 1e10,
       //bestEffort: true
     });
