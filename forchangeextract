@@ -48,7 +48,7 @@ Export.table.toDrive({
   collection:result,
   description:'indtest',
   fileFormat:'CSV',
-  selectors: ('GID_2','lossyear')
+  selectors: (['GID_2','lossyear'])
 })
 
 
