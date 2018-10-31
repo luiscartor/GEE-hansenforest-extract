@@ -1,3 +1,10 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = /* color: #d63000 */ee.Geometry.Polygon(
+        [[[115.00229079252688, -1.8148059133425922],
+          [115.19455153471438, -1.8299044741876154],
+          [115.19455153471438, -1.667931675791483],
+          [114.99679762846438, -1.6720497989667944]]]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 // forchangeextract
 // 30 October 2018
 // by Luis
@@ -20,11 +27,12 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
 
 var level2loss = treeLoss.reduceRegion({
       reducer: ee.Reducer.fixedHistogram(0,17,1),
-      geometry: level2bound,
+      geometry: geometry,
       maxPixels: 1e10,
       bestEffort: true
     });
 
+print(level2loss)
 //Export.table.toDrive({
 //  collection:level2loss,
 //  description:'INDcountshistogram',
