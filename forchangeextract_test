@@ -16,6 +16,9 @@ var geometry = /* color: #98ff00 */ee.Geometry.Polygon(
 // 30 October 2018
 // by Luis
 // Extracts forest loss pixels for each year and region of interest
+// Output (exported to drive) is a csv table with level 2 region code in the first column
+// and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
+// 2001-2017) 
 
 // 1. Data
 // Pulls Hansen forest loss dataset
@@ -34,7 +37,7 @@ var filtered = level2bound.filterBounds(geometry2);
 
 
 
-var result = level2bound.map(function(feature){
+var result = filtered.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer: ee.Reducer.fixedHistogram(0,18,18),
     geometry:feature.geometry(), 
@@ -46,7 +49,7 @@ print(result)
 
 Export.table.toDrive({
   collection:result,
-  description:'level2treelosshist',
+  description:'indtest3',
   fileFormat:'CSV',
   selectors: (['GID_2','lossyear'])
 })
