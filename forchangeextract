@@ -41,7 +41,7 @@ var level2loss = treeLoss.reduceRegion({
       //bestEffort: true
     });
 
-var result = filtered.map(function(feature){
+var result = level2bound.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer: ee.Reducer.fixedHistogram(0,18,18),
     geometry:feature.geometry(), //is the .geometry helping or hurting?
@@ -53,7 +53,7 @@ print(result)
 
 Export.table.toDrive({
   collection:result,
-  description:'INDcountshistogram1',
+  description:'INDcountshistogram2',
   fileFormat:'CSV'
 })
 
