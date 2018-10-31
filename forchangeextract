@@ -33,10 +33,10 @@ var level2loss = treeLoss.reduceRegion({
     });
 
 print(level2loss)
-//Export.table.toDrive({
-//  collection:level2loss,
-//  description:'INDcountshistogram',
-//  fileFormat:'CSV'
+Export.table.toDrive({
+  collection:level2loss,
+  description:'INDcountshistogram1',
+  fileFormat:'CSV'
 //})
 
 
