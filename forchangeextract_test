@@ -40,9 +40,9 @@ var treeLossVis = {
 
 // 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
-//var filtered = level2bound.filterBounds(geometry3);
-// Subsets to country: IDN. Comment if extracting for the whole dataset
-var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+
+// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
+//var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // 2. Analysis
 // Creats histogram of number of pixels per year of loss (or zero for no loss)
@@ -63,7 +63,7 @@ var result = filtered.map(function(feature){
 Export.table.toDrive({
   collection:result,
   // Edit dataset name
-  description:'level2_forestloss_IDN',
+  description:'level2_forestloss',
   fileFormat:'CSV',
   // Subset output features to reduce export time
   selectors: (['GID_2','lossyear'])
