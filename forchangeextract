@@ -30,11 +30,11 @@ var treeLossVis = {
 
 // Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
-//var filtered = level2bound.filterBounds(geometry2);
+var filtered = level2bound.filterBounds(geometry2);
 
 
 
-var result = level2bound.map(function(feature){
+var result = filtered.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer: ee.Reducer.fixedHistogram(0,18,18),
     geometry:feature.geometry(), //is the .geometry helping or hurting?
@@ -42,7 +42,7 @@ var result = level2bound.map(function(feature){
   }))
 })
 
-//print(result)
+print(result)
 
 Export.table.toDrive({
   collection:result,
