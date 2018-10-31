@@ -29,17 +29,10 @@ var treeLossVis = {
 
 
 // Reads boundaries dataset
-var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
-var filtered = level2bound.filterBounds(geometry2);
+var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
+//var filtered = level2bound.filterBounds(geometry2);
 
 
-var level2loss = treeLoss.reduceRegion({
-      reducer: ee.Reducer.fixedHistogram(0,18,18),
-      //reducer: ee.Reducer.sum(),
-      geometry: filtered.geometry(),
-      maxPixels: 1e12
-      //bestEffort: true
-    });
 
 var result = level2bound.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
@@ -49,11 +42,11 @@ var result = level2bound.map(function(feature){
   }))
 })
 
-print(result)
+//print(result)
 
 Export.table.toDrive({
   collection:result,
-  description:'INDcountshistogram2',
+  description:'globalcountshistogram',
   fileFormat:'CSV'
 })
 
