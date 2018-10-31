@@ -3,7 +3,14 @@ var geometry = /* color: #98ff00 */ee.Geometry.Polygon(
         [[[115.22572416788546, -1.83869426059422],
           [115.22575635439364, -1.8398738245232875],
           [115.22697944170443, -1.8399059944377034],
-          [115.22697944170443, -1.838640644033473]]]);
+          [115.22697944170443, -1.838640644033473]]]),
+    geometry2 = /* color: #d63000 */ee.Geometry.Polygon(
+        [[[110.73823803368373, 0.6100388349170259],
+          [110.27681225243373, -0.5984348516488113],
+          [111.28755443993373, -1.52111857669315],
+          [113.13325756493373, -1.0158729714048715],
+          [112.43013256493373, 0.2145420473210763],
+          [111.24360912743373, 0.9176283174576803]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 // forchangeextract
 // 30 October 2018
@@ -23,16 +30,17 @@ var treeLossVis = {
 
 // Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_IDN_2");
+var filtered = level2bound.filterBounds(geometry2);
 print(level2bound)
 
 var level2loss = treeLoss.reduceRegion({
       reducer: ee.Reducer.fixedHistogram(0,18,18),
-      geometry: level2bound,
+      geometry: filtered,
       maxPixels: 1e12
       //bestEffort: true
     });
 
-//print(level2loss)
+print(level2loss)
 //Export.table.toDrive({
 //  collection:level2loss,
 //  description:'INDcountshistogram1',
