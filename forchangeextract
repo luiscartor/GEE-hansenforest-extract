@@ -44,7 +44,7 @@ var level2loss = treeLoss.reduceRegion({
 var result = filtered.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
     reducer:'sum',
-    geometry:feature, //is the .geometry helping or hurting?
+    geometry:feature.geometry(), //is the .geometry helping or hurting?
     maxPixels:1e12,
   }))
 })
