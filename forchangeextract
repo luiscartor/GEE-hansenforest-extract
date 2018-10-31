@@ -49,7 +49,7 @@ var result = filtered.map(function(feature){
   }))
 })
 
-print(level2loss)
+print(result)
 
 //Export.table.toDrive({
 //  collection:level2loss,
