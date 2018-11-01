@@ -29,7 +29,7 @@ var treeLoss = hansen.mask(hansen).select('lossyear');
 var treeLossVis = {
   min: 0.0,
   max: 17.0,
-  palette: ['080a02', '080a02', '080a02', '106e12', '37a930', '03ff17'],
+  palette: ['080a02', '03ff17'],
 };
 
 
