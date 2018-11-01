@@ -18,13 +18,13 @@ var treeLossVis = {
   palette: ['080a02', '080a02', '080a02', '106e12', '37a930', '03ff17'],
 };
 
-
 // 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
-// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
-// If using filtered featured collection, change naming in map function.
+// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
+// If using filtered featured collection, change input name in map function.
 //var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+
 
 // 2. Analysis
 // Select input feature collection
