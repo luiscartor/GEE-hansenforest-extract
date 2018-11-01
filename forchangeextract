@@ -1,0 +1,61 @@
+// forchangeextract
+// 30 October 2018
+// by Luis
+// Extracts forest loss pixels for each year and region of interest
+// Output (exported to drive) is a csv table with level 2 region code in the first column
+// and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
+// 2001-2017) 
+
+// 1. Read and Subset Data
+// 1.1 Pulls Hansen forest loss dataset
+var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
+// Selects band with loss year (value of zero is no loss)
+var treeLoss = hansen.select('lossyear');
+// Defines visualization parameters
+var treeLossVis = {
+  min: 0.0,
+  max: 17.0,
+  palette: ['080a02', '080a02', '080a02', '106e12', '37a930', '03ff17'],
+};
+
+
+// 1.2 Reads boundaries dataset
+var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
+
+// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
+// If using filtered featured collection, change naming in map function.
+//var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+
+// 2. Analysis
+// Select input feature collection
+var inputcoll = level2bound
+// Creats histogram of number of pixels per year of loss (or zero for no loss)
+var result = inputcoll.map(function(feature){
+  return feature.set(treeLoss.reduceRegion({
+    reducer: ee.Reducer.fixedHistogram(0,18,18),
+    //reducer: ee.Reducer.count(),
+    geometry:feature.geometry(), 
+    maxPixels:1e13,
+  }))
+})
+
+// 2. Outputs
+// 2.1 Print result (if small enough, otherwise "timeout" error)
+//print(result)
+
+// 2.2 Export to drive as a .csv
+Export.table.toDrive({
+  collection:result,
+  // Edit dataset name
+  description:'level2_forestloss',
+  fileFormat:'CSV',
+  // Subset output features to reduce export time
+  selectors: (['GID_2','lossyear'])
+})
+
+
+// 2.3 Data visualization
+// Plot tree loss dataset
+Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
+// Plot boundaries with extracted data
+Map.addLayer(inputcoll)
