@@ -11,7 +11,7 @@
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 // Subsets the forested areas (more than 0% of forests) and
 // selects band with loss year (value of zero is no loss)
-var treeLoss = hansen.clip(hansen).select('lossyear');
+var treeLoss = hansen.mask(hansen).select('lossyear');
 // Defines visualization parameters
 var treeLossVis = {
   min: 0.0,
