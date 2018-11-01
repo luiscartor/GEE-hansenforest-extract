@@ -9,9 +9,10 @@
 // 1. Read and Subset Data
 // 1.1 Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
-// Subsets the forested areas (more than 0% of forests) and
-// selects band with loss year (value of zero is no loss)
-var treeLoss = hansen.mask(hansen).select('lossyear');
+// Create mask to avoid exclude pixels with no forest
+var treeCover = hansen.mask(hansen.select('treecover2000'))
+// Selects band with loss year (value of zero is no loss)
+var treeLoss = treeCover.select('lossyear');
 
 // 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
