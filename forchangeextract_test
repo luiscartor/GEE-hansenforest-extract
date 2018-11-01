@@ -40,9 +40,6 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 // If using filtered featured collection, change naming in map function.
 //var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
-// Subsets to region of interest (geometry drawn in GEE)
-var rois = level2bound.filterBounds(geometry)
-
 // 2. Analysis
 // Select input feature collection
 var inputcoll = rois
@@ -58,7 +55,7 @@ var result = inputcoll.map(function(feature){
 
 // 2. Outputs
 // 2.1 Print result (if small enough, otherwise "timeout" error)
-print(result)
+//print(result)
 
 // 2.2 Export to drive as a .csv
 Export.table.toDrive({
