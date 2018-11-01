@@ -1,3 +1,14 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = /* color: #98ff00 */ee.Geometry.MultiPolygon(
+        [[[[111.38071045235051, -0.854648797384758],
+           [111.38071045235051, -0.855893203712878],
+           [111.38264164284124, -0.8556786509264758],
+           [111.38255581215276, -0.8541338705103148]]],
+         [[[111.3644455368842, -0.8530611059670261],
+           [111.36448845222844, -0.8550779030607143],
+           [111.36560425117864, -0.854949171362968],
+           [111.36564716652288, -0.8532756588996194]]]]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 // forchangeextract
 // 30 October 2018
 // by Luis
@@ -25,6 +36,9 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 // Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
 // If using filtered featured collection, change naming in map function.
 //var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+
+// Subsets to region of interest (geometry drawn in GEE)
+var rois = level2bound.geometry(geometry)
 
 // 2. Analysis
 // Select input feature collection
