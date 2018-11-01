@@ -38,11 +38,11 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
 // Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
 // If using filtered featured collection, change naming in map function.
-//var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // 2. Analysis
 // Select input feature collection
-var inputcoll = level2bound
+var inputcoll = filtered
 // Creats histogram of number of pixels per year of loss (or zero for no loss)
 var result = inputcoll.map(function(feature){
   return feature.set(treeLoss.reduceRegion({
