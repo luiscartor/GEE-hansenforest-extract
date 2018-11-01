@@ -72,7 +72,7 @@ Export.table.toDrive({
 // 2.3 Data visualization
 // Plot tree loss dataset
 Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
-Map.addlayer(treeCover,
+Map.addLayer(treeCover,
   {bands: ['treecover2000'],max: [1, 255, 1]},
   'forest cover');
 // Plot boundaries with extracted data
