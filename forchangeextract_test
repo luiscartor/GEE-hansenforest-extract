@@ -38,7 +38,7 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 //var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // Subsets to region of interest (geometry drawn in GEE)
-var rois = level2bound.clip(geometry)
+var rois = level2bound.filterBounds(geometry)
 
 // 2. Analysis
 // Select input feature collection
