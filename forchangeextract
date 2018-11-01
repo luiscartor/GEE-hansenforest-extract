@@ -1,10 +1,10 @@
 // forchangeextract
 // 30 October 2018
 // by Luis
-// Extracts forest loss pixels for each year and region of interest
-// Output (exported to drive) is a csv table with level 2 region code in the first column
+// Extracts forest loss number of pixels for each year and region of interest
+// Output (exported to drive) is a csv table with level_2 region code in the first column
 // and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
-// 2001-2017) 
+// 2001-2017) in the second column
 
 // 1. Read and Subset Data
 // 1.1 Pulls Hansen forest loss dataset
