@@ -24,7 +24,7 @@ var geometry = /* color: #98ff00 */ee.Geometry.MultiPolygon(
 // 1.1 Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 // Selects band with loss year (value of zero is no loss)
-var treeLoss = hansen.select('lossyear');
+var treeLoss = hansen.mask(hansen).select('lossyear');
 // Defines visualization parameters
 var treeLossVis = {
   min: 0.0,
