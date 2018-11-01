@@ -61,7 +61,7 @@ var result = inputcoll.map(function(feature){
 Export.table.toDrive({
   collection:result,
   // Edit dataset name
-  description:'level2_forestloss',
+  description:'level2_forestlossmasked',
   fileFormat:'CSV',
   // Subset output features to reduce export time
   selectors: (['GID_2','lossyear'])
