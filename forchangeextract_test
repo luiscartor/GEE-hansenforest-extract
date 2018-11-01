@@ -55,7 +55,7 @@ var result = inputcoll.map(function(feature){
 
 // 2. Outputs
 // 2.1 Print result (if small enough, otherwise "timeout" error)
-//print(result)
+print(result)
 
 // 2.2 Export to drive as a .csv
 Export.table.toDrive({
