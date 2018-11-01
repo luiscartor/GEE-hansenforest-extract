@@ -12,12 +12,6 @@ var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 // Subsets the forested areas (more than 0% of forests) and
 // selects band with loss year (value of zero is no loss)
 var treeLoss = hansen.mask(hansen).select('lossyear');
-// Defines visualization parameters
-var treeLossVis = {
-  min: 0.0,
-  max: 17.0,
-  palette: ['080a02', '080a02', '080a02', '106e12', '37a930', '03ff17'],
-};
 
 // 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
@@ -56,7 +50,13 @@ Export.table.toDrive({
 
 
 // 2.3 Data visualization
-// Plot tree loss dataset
-Map.addLayer(treeLoss, treeLossVis, 'Tree Canopy Cover');
-// Plot boundaries with extracted data
-Map.addLayer(inputcoll)
+// Plots tree cover
+Map.addLayer(treeCover,
+  {bands: ['treecover2000'],max: 255, palette: ['080a02', '03ff17']},
+  'Forest cover');
+// Plots year of forest loss  
+Map.addLayer(treeLoss, 
+  {min: 0.0, max: 17.0, palette: ['080a02', '03ff17']}, 
+  'Year of loss');
+// Plots boundaries with extracted data
+Map.addLayer(result)
