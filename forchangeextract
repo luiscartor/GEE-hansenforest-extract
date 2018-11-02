@@ -1,5 +1,5 @@
 // forchangeextract
-// 30 October 2018
+// 31 October 2018
 // by Luis
 // Extracts forest-loss number of pixels for each year and region of interest
 // Output (exported to drive) is a csv table with level_2 region code in the first column
