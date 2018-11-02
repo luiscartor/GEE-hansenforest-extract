@@ -33,7 +33,7 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
 // Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset
 // If using filtered featured collection, change naming in map function.
-var filtered = level2bound.filter(ee.Filter.eq('GID_2', 'BRA.5.86_1'));
+var filtered = level2bound.filter(ee.Filter.eq('GID_2', 'BRA.8.32_1'));
 
 // 2. Analysis
 // Select input feature collection
