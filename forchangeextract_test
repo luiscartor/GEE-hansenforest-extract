@@ -64,7 +64,7 @@ Export.table.toDrive({
 
 
 // 2.3 Data visualization
-
+Map.setCenter(result);
 // Plots tree cover
 Map.addLayer(treeCover,
   {bands: ['treecover2000'],max: 255, palette: ['080a02', '03ff17']},
