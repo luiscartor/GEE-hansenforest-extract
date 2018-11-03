@@ -22,12 +22,12 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
 // Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
 // If using filtered featured collection, change input name in map function.
-var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+//var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // 2. Analysis
 // Select input feature collection
-//var inputcoll = level2bound
-var inputcoll = filtered
+var inputcoll = level2bound
+//var inputcoll = filtered
 
 // Creats histogram of number of pixels per year of loss (or zero for no loss)
 var result = inputcoll.map(function(feature){
@@ -49,7 +49,7 @@ var resultarea = result.map(function(feature){
 
 // 3. Outputs
 // 3.1 Print result (if small enough, otherwise "timeout" error)
-print(resultarea)
+//print(resultarea)
 
 // 3.2 Export to drive as a .csv
 Export.table.toDrive({
