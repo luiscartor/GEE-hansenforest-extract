@@ -58,14 +58,14 @@ Export.table.toDrive({
   description:'level2_forestlossarea',
   fileFormat:'CSV',
   // Subset output features to reduce export time
-  selectors: (['GID_2','lossyear'])
+  selectors: (['GID_2','treecover2000','lossyear'])
 })
 
 
 // 3.3 Data visualization
 // Plots tree cover
-Map.addLayer(treeCover,
-  {bands: ['treecover2000'],max: 255, palette: ['080a02', '03ff17']},
+Map.addLayer(forestArea,
+  {bands: ['treecover2000'], palette: ['080a02', '03ff17']},
   'Forest cover');
 // Plots year of forest loss  
 Map.addLayer(treeLoss, 
