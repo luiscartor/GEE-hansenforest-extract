@@ -68,7 +68,7 @@ Map.addLayer(forestArea,
   {bands: ['treecover2000'], palette: ['080a02', '03ff17']},
   'Forest cover');
 // Plots year of forest loss  
-Map.addLayer(treeLoss, 
+Map.addLayer(forest, 
   {min: 0.0, max: 17.0, palette: ['080a02', '03ff17']}, 
   'Year of loss');
 // Plots boundaries with extracted data
