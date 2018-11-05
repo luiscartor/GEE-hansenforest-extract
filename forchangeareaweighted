@@ -54,31 +54,31 @@ var inputcoll = filtered
 // Creats histogram of number of pixels per year of loss (or zero for no loss)
 var result = inputcoll.map(function(feature){
   return feature.set(treeCover.multiply(nolossArea).reduceRegion({
-    reducer: ee.Reducer.sum(),
+    reducer: ee.Reducer.sum().setOutputs(['noloss']),
     geometry:feature.geometry(), 
     maxPixels:1e14,
   }))
   .set(treeCover.multiply(lossArea2001).reduceRegion({
-    reducer: ee.Reducer.sum(),
+    reducer: ee.Reducer.sum().setOutputs(['loss2001']),
     geometry:feature.geometry(), 
     maxPixels:1e14,
   }))
-  .set(treeCover.multiply(lossArea2002).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2003).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2004).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2005).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2006).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2007).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2008).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2009).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2010).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2011).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2012).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2013).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2014).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2015).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2016).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2017).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2002).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2002']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2003).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2003']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2004).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2004']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2005).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2005']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2006).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2006']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2007).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2007']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2008).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2008']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2009).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2009']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2010).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2010']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2011).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2011']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2012).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2012']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2013).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2013']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2014).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2014']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2015).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2015']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2016).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2016']),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2017).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2017']),geometry:feature.geometry(),maxPixels:1e14,}))
 })
 
 
@@ -91,10 +91,12 @@ var result = inputcoll.map(function(feature){
 Export.table.toDrive({
   collection:result,
   // Edit dataset name here
-  description:'level2_forestlossareaweightedIDN',
+  description:'level2_forestlossareaweighted',
   fileFormat:'CSV',
   // Subset output features to reduce export time
-  selectors: (['GID_2','treecover2000','lossyear','lossyear1'])
+  selectors: (['GID_2','noloss','loss2001','loss2002','loss2003','loss2004',
+  'loss2005','loss2006','loss2007','loss2008','loss2009','loss2010','loss2011',
+  'loss2012','loss2013','loss2014','loss2015','loss2016','loss2017'])
 })
 
 
