@@ -1,0 +1,95 @@
+// forchangeareaweighted
+// 3 November 2018
+// by Luis
+// Extracts forest-loss number of pixels for each year and region of interest
+// Output (exported to drive) is a csv table with level_2 region code in the first column
+// and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
+// 2001-2017) in the second column
+
+// 1. Read and Subset Data
+// 1.1 Pulls Hansen forest loss dataset
+var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
+// Create mask to exclude pixels with no forest
+var treeCover = hansen.mask(hansen.select('treecover2000'))
+// Selects band with loss year (value of zero is no loss)
+var treeLoss = treeCover.select('lossyear');
+
+var forest = hansen.select(['treecover2000']).gt(0) //loss in year 2012 only
+var forestArea = forest.multiply(ee.Image.pixelArea()) // count pixel areas
+
+
+var nolossArea = treeCover.select(['lossyear']).eq(0).multiply(ee.Image.pixelArea());
+var lossArea2001 = treeCover.select(['lossyear']).eq(1).multiply(ee.Image.pixelArea());
+var lossArea2002 = treeCover.select(['lossyear']).eq(2).multiply(ee.Image.pixelArea());
+var lossArea2003 = treeCover.select(['lossyear']).eq(3).multiply(ee.Image.pixelArea());
+var lossArea2004 = treeCover.select(['lossyear']).eq(4).multiply(ee.Image.pixelArea());
+var lossArea2005 = treeCover.select(['lossyear']).eq(5).multiply(ee.Image.pixelArea());
+var lossArea2006 = treeCover.select(['lossyear']).eq(6).multiply(ee.Image.pixelArea());
+var lossArea2007 = treeCover.select(['lossyear']).eq(7).multiply(ee.Image.pixelArea());
+var lossArea2008 = treeCover.select(['lossyear']).eq(8).multiply(ee.Image.pixelArea());
+var lossArea2009 = treeCover.select(['lossyear']).eq(9).multiply(ee.Image.pixelArea());
+var lossArea2010 = treeCover.select(['lossyear']).eq(10).multiply(ee.Image.pixelArea());
+var lossArea2011 = treeCover.select(['lossyear']).eq(11).multiply(ee.Image.pixelArea());
+var lossArea2012 = treeCover.select(['lossyear']).eq(12).multiply(ee.Image.pixelArea());
+var lossArea2013 = treeCover.select(['lossyear']).eq(13).multiply(ee.Image.pixelArea());
+var lossArea2014 = treeCover.select(['lossyear']).eq(14).multiply(ee.Image.pixelArea());
+var lossArea2015 = treeCover.select(['lossyear']).eq(15).multiply(ee.Image.pixelArea());
+var lossArea2016 = treeCover.select(['lossyear']).eq(16).multiply(ee.Image.pixelArea());
+var lossArea2017 = treeCover.select(['lossyear']).eq(17).multiply(ee.Image.pixelArea());
+
+
+
+// 1.2 Reads boundaries dataset
+var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
+
+// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
+// If using filtered featured collection, change input name in map function.
+var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+
+// 2. Analysis
+// Select input feature collection
+//var inputcoll = level2bound
+var inputcoll = filtered
+
+// Creats histogram of number of pixels per year of loss (or zero for no loss)
+var result = inputcoll.map(function(feature){
+  return feature.set(treeCover.multiply(nolossArea).reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry:feature.geometry(), 
+    maxPixels:1e14,
+  }))
+  .set(treeCover.multiply(lossArea2001).reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry:feature.geometry(), 
+    maxPixels:1e14,
+  })))
+})
+
+
+
+// 3. Outputs
+// 3.1 Print result (if small enough, otherwise "timeout" error)
+//print(resultarea)
+
+// 3.2 Export to drive as a .csv
+Export.table.toDrive({
+  collection:resultarea,
+  // Edit dataset name here
+  description:'level2_forestlossareaweightedIDN',
+  fileFormat:'CSV',
+  // Subset output features to reduce export time
+  selectors: (['GID_2','treecover2000','lossyear'])
+})
+
+
+// 3.3 Data visualization
+// Plots tree cover
+Map.addLayer(forestArea,
+  {bands: ['treecover2000'], palette: ['080a02', '03ff17']},
+  'Forest cover');
+// Plots year of forest loss  
+Map.addLayer(forest, 
+  {min: 0.0, max: 17.0, palette: ['080a02', '03ff17']}, 
+  'Year of loss');
+// Plots boundaries with extracted data
+Map.addLayer(result)
