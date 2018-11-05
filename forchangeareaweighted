@@ -62,7 +62,7 @@ var result = inputcoll.map(function(feature){
     reducer: ee.Reducer.sum(),
     geometry:feature.geometry(), 
     maxPixels:1e14,
-  })))
+  }))
 })
 
 
