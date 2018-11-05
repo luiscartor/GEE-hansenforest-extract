@@ -63,6 +63,22 @@ var result = inputcoll.map(function(feature){
     geometry:feature.geometry(), 
     maxPixels:1e14,
   }))
+  .set(treeCover.multiply(lossArea2002).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2003).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2004).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2005).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2006).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2007).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2008).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea2009).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20010).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20011).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20012).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20013).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20014).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20015).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20016).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
+  .set(treeCover.multiply(lossArea20017).reduceRegion({reducer: ee.Reducer.sum(),geometry:feature.geometry(),maxPixels:1e14,}))
 })
 
 
@@ -78,7 +94,7 @@ Export.table.toDrive({
   description:'level2_forestlossareaweightedIDN',
   fileFormat:'CSV',
   // Subset output features to reduce export time
-  selectors: (['GID_2','treecover2000','lossyear'])
+  selectors: (['GID_2','treecover2000','lossyear','lossyear1'])
 })
 
 
