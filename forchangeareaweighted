@@ -73,7 +73,7 @@ var result = inputcoll.map(function(feature){
 
 // 3.2 Export to drive as a .csv
 Export.table.toDrive({
-  collection:resultarea,
+  collection:result,
   // Edit dataset name here
   description:'level2_forestlossareaweightedIDN',
   fileFormat:'CSV',
