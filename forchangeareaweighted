@@ -10,9 +10,9 @@
 // 1.1 Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 // Create mask to exclude pixels with no forest
-var treeCover = hansen.mask(hansen.select('treecover2000'))
+var treeMask = hansen.mask(hansen.select('treecover2000'))
 // Selects band with loss year (value of zero is no loss)
-//var treeLoss = treeCover.select('lossyear');
+var treeLoss = treeCover.select('lossyear');
 
 //var forest = hansen.select(['treecover2000']).gt(0) //loss in year 2012 only
 //var forestArea = forest.multiply(ee.Image.pixelArea()) // count pixel areas
@@ -44,42 +44,44 @@ var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
 // Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
 // If using filtered featured collection, change input name in map function.
-//var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
+var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // 2. Analysis
 // Select input feature collection
-var inputcoll = level2bound
-//var inputcoll = filtered
+//var inputcoll = level2bound
+var inputcoll = filtered
 
 // Creats histogram of number of pixels per year of loss (or zero for no loss)
-var result = inputcoll.map(function(feature){
-  return feature.set(treeCover.multiply(nolossArea).reduceRegion({
+var result = inputcoll.map(function f(feature) {
+  return feature.set("noloss",
+  ee.Number(treeCover.multiply(nolossArea).reduceRegion({
     reducer: ee.Reducer.sum().setOutputs(['noloss']),
     geometry:feature.geometry(), 
     maxPixels:1e14,
-  }))
-  .set(treeCover.multiply(lossArea2001).reduceRegion({
+  }).get('treecover2000')).divide(100))
+  .set("loss2001",
+  ee.Number(treeCover.multiply(lossArea2001).reduceRegion({
     reducer: ee.Reducer.sum().setOutputs(['loss2001']),
     geometry:feature.geometry(), 
     maxPixels:1e14,
-  }))
-  .set(treeCover.multiply(lossArea2002).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2002']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2003).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2003']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2004).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2004']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2005).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2005']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2006).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2006']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2007).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2007']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2008).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2008']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2009).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2009']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2010).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2010']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2011).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2011']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2012).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2012']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2013).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2013']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2014).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2014']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2015).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2015']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2016).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2016']),geometry:feature.geometry(),maxPixels:1e14,}))
-  .set(treeCover.multiply(lossArea2017).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2017']),geometry:feature.geometry(),maxPixels:1e14,}))
-})
+  }).get('treecover2000')).divide(100))
+  .set("loss2002",ee.Number(treeCover.multiply(lossArea2002).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2002']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2003",ee.Number(treeCover.multiply(lossArea2003).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2003']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2004",ee.Number(treeCover.multiply(lossArea2004).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2004']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2005",ee.Number(treeCover.multiply(lossArea2005).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2005']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2006",ee.Number(treeCover.multiply(lossArea2006).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2006']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2007",ee.Number(treeCover.multiply(lossArea2007).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2007']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2008",ee.Number(treeCover.multiply(lossArea2008).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2008']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2009",ee.Number(treeCover.multiply(lossArea2009).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2009']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2010",ee.Number(treeCover.multiply(lossArea2010).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2010']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2011",ee.Number(treeCover.multiply(lossArea2011).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2011']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2012",ee.Number(treeCover.multiply(lossArea2012).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2012']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2013",ee.Number(treeCover.multiply(lossArea2013).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2013']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2014",ee.Number(treeCover.multiply(lossArea2014).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2014']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2015",ee.Number(treeCover.multiply(lossArea2015).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2015']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2016",ee.Number(treeCover.multiply(lossArea2016).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2016']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+  .set("loss2017",ee.Number(treeCover.multiply(lossArea2017).reduceRegion({reducer: ee.Reducer.sum().setOutputs(['loss2017']),geometry:feature.geometry(),maxPixels:1e14,}).get('treecover2000')).divide(100))
+});
 
 
 
@@ -91,7 +93,7 @@ var result = inputcoll.map(function(feature){
 Export.table.toDrive({
   collection:result,
   // Edit dataset name here
-  description:'level2_forestlossareaweighted',
+  description:'level2_forestlossareaIDN',
   fileFormat:'CSV',
   // Subset output features to reduce export time
   selectors: (['GID_2','noloss','loss2001','loss2002','loss2003','loss2004',
