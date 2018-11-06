@@ -14,9 +14,6 @@ var treeMask = hansen.mask(hansen.select('treecover2000'))
 // Selects band with loss year (value of zero is no loss)
 var treeCover = treeMask.select('treecover2000');
 
-//var forest = hansen.select(['treecover2000']).gt(0) //loss in year 2012 only
-//var forestArea = forest.multiply(ee.Image.pixelArea()) // count pixel areas
-
 
 var nolossArea = treeMask.select(['lossyear']).eq(0).multiply(ee.Image.pixelArea());
 var lossArea2001 = treeMask.select(['lossyear']).eq(1).multiply(ee.Image.pixelArea());
