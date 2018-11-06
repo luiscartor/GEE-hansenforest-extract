@@ -12,30 +12,30 @@ var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
 // Create mask to exclude pixels with no forest
 var treeMask = hansen.mask(hansen.select('treecover2000'))
 // Selects band with loss year (value of zero is no loss)
-var treeCover = hansentrees.select('treecover2000');
+var treeCover = treeMask.select('treecover2000');
 
 //var forest = hansen.select(['treecover2000']).gt(0) //loss in year 2012 only
 //var forestArea = forest.multiply(ee.Image.pixelArea()) // count pixel areas
 
 
-var nolossArea = treeCover.select(['lossyear']).eq(0).multiply(ee.Image.pixelArea());
-var lossArea2001 = treeCover.select(['lossyear']).eq(1).multiply(ee.Image.pixelArea());
-var lossArea2002 = treeCover.select(['lossyear']).eq(2).multiply(ee.Image.pixelArea());
-var lossArea2003 = treeCover.select(['lossyear']).eq(3).multiply(ee.Image.pixelArea());
-var lossArea2004 = treeCover.select(['lossyear']).eq(4).multiply(ee.Image.pixelArea());
-var lossArea2005 = treeCover.select(['lossyear']).eq(5).multiply(ee.Image.pixelArea());
-var lossArea2006 = treeCover.select(['lossyear']).eq(6).multiply(ee.Image.pixelArea());
-var lossArea2007 = treeCover.select(['lossyear']).eq(7).multiply(ee.Image.pixelArea());
-var lossArea2008 = treeCover.select(['lossyear']).eq(8).multiply(ee.Image.pixelArea());
-var lossArea2009 = treeCover.select(['lossyear']).eq(9).multiply(ee.Image.pixelArea());
-var lossArea2010 = treeCover.select(['lossyear']).eq(10).multiply(ee.Image.pixelArea());
-var lossArea2011 = treeCover.select(['lossyear']).eq(11).multiply(ee.Image.pixelArea());
-var lossArea2012 = treeCover.select(['lossyear']).eq(12).multiply(ee.Image.pixelArea());
-var lossArea2013 = treeCover.select(['lossyear']).eq(13).multiply(ee.Image.pixelArea());
-var lossArea2014 = treeCover.select(['lossyear']).eq(14).multiply(ee.Image.pixelArea());
-var lossArea2015 = treeCover.select(['lossyear']).eq(15).multiply(ee.Image.pixelArea());
-var lossArea2016 = treeCover.select(['lossyear']).eq(16).multiply(ee.Image.pixelArea());
-var lossArea2017 = treeCover.select(['lossyear']).eq(17).multiply(ee.Image.pixelArea());
+var nolossArea = treeMask.select(['lossyear']).eq(0).multiply(ee.Image.pixelArea());
+var lossArea2001 = treeMask.select(['lossyear']).eq(1).multiply(ee.Image.pixelArea());
+var lossArea2002 = treeMask.select(['lossyear']).eq(2).multiply(ee.Image.pixelArea());
+var lossArea2003 = treeMask.select(['lossyear']).eq(3).multiply(ee.Image.pixelArea());
+var lossArea2004 = treeMask.select(['lossyear']).eq(4).multiply(ee.Image.pixelArea());
+var lossArea2005 = treeMask.select(['lossyear']).eq(5).multiply(ee.Image.pixelArea());
+var lossArea2006 = treeMask.select(['lossyear']).eq(6).multiply(ee.Image.pixelArea());
+var lossArea2007 = treeMask.select(['lossyear']).eq(7).multiply(ee.Image.pixelArea());
+var lossArea2008 = treeMask.select(['lossyear']).eq(8).multiply(ee.Image.pixelArea());
+var lossArea2009 = treeMask.select(['lossyear']).eq(9).multiply(ee.Image.pixelArea());
+var lossArea2010 = treeMask.select(['lossyear']).eq(10).multiply(ee.Image.pixelArea());
+var lossArea2011 = treeMask.select(['lossyear']).eq(11).multiply(ee.Image.pixelArea());
+var lossArea2012 = treeMask.select(['lossyear']).eq(12).multiply(ee.Image.pixelArea());
+var lossArea2013 = treeMask.select(['lossyear']).eq(13).multiply(ee.Image.pixelArea());
+var lossArea2014 = treeMask.select(['lossyear']).eq(14).multiply(ee.Image.pixelArea());
+var lossArea2015 = treeMask.select(['lossyear']).eq(15).multiply(ee.Image.pixelArea());
+var lossArea2016 = treeMask.select(['lossyear']).eq(16).multiply(ee.Image.pixelArea());
+var lossArea2017 = treeMask.select(['lossyear']).eq(17).multiply(ee.Image.pixelArea());
 
 
 
