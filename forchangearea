@@ -87,7 +87,6 @@ var result = inputcoll.map(function f(feature) {
 });
 
 
-
 // 3. Outputs
 // 3.1 Print result (if small enough, otherwise "timeout" error)
 //print(resultarea)
