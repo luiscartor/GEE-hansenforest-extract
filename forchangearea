@@ -1,20 +1,21 @@
-// forchangeareaweighted
+// forchangearea
 // 3 November 2018
 // by Luis
-// Extracts forest-loss number of pixels for each year and region of interest
-// Output (exported to drive) is a csv table with level_2 region code in the first column
-// and a histogram of pixel counts of forest loss for each year (0 is no loss, 1-17 are years:
-// 2001-2017) in the second column
+// Extracts forest-loss area for each year and region of interest
+// Output (exported to drive) is a csv table with level_2 region code in the first column,
+// no forest loss area (in sq m) in second column, the rest of the columns represent
+// forest loss area for each year after 2000 (2001-2017)
 
 // 1. Read and Subset Data
-// 1.1 Pulls Hansen forest loss dataset
+// 1.1 Forest dataset 
+// 1.1.1 Pulls Hansen forest loss dataset
 var hansen = ee.Image("UMD/hansen/global_forest_change_2017_v1_5");
-// Create mask to exclude pixels with no forest
+// 1.1.2 Creates mask to exclude pixels with no forest
 var treeMask = hansen.mask(hansen.select('treecover2000'))
-// Selects band with loss year (value of zero is no loss)
+// 1.1.3 Creates layer with % of tree cover in 2000
 var treeCover = treeMask.select('treecover2000');
 
-
+// 1.1.4 Creates individual layers of area for non-lost forest pixels, and loss for each year 2001-2017
 var nolossArea = treeMask.select(['lossyear']).eq(0).multiply(ee.Image.pixelArea());
 var lossArea2001 = treeMask.select(['lossyear']).eq(1).multiply(ee.Image.pixelArea());
 var lossArea2002 = treeMask.select(['lossyear']).eq(2).multiply(ee.Image.pixelArea());
@@ -39,16 +40,21 @@ var lossArea2017 = treeMask.select(['lossyear']).eq(17).multiply(ee.Image.pixelA
 // 1.2 Reads boundaries dataset
 var level2bound = ee.FeatureCollection("users/luiscartor/gadm36_2_reduced");
 
-// Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
+// 1.3 Subsets to country: Indonesia = IDN. Comment if extracting for the whole dataset.
 // If using filtered featured collection, change input name in map function.
 //var filtered = level2bound.filter(ee.Filter.eq('GID_0', 'IDN'));
 
 // 2. Analysis
-// Select input feature collection
+// 2.1 Select input feature collection
 var inputcoll = level2bound
 //var inputcoll = filtered
 
-// Creats histogram of number of pixels per year of loss (or zero for no loss)
+// 2.2 Forest area loss extraction for each feature
+// Maps through feature collection, and extracts the sum of the area
+// for each of the loss layers (noloss or lossYYYY).
+// lossAreaYYYY layers are multiplied by the tree cover to account for coverage %.
+// A sum reducer is applied to calculate loss area for each year.
+// Divides by 100 as treecover layer is in %.
 var result = inputcoll.map(function f(feature) {
   return feature.set("noloss",
   ee.Number(treeCover.multiply(nolossArea).reduceRegion({
