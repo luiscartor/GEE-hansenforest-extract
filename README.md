@@ -1,6 +1,6 @@
 # Extracting Hansen's forest data with GEE
 
-Two scripts to extract forest cover and forest change from the Hansen's dataset in GEE (Javascript).
+Two scripts to extract forest cover and forest change from the Hansen's dataset in GEE (JavaScript).
 
 *forchangearea* script extracts forest area change within areas of interest (countries and regions)
 
