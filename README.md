@@ -1,4 +1,4 @@
-# Exctracting Hansen's forest data with GEE
+# Extracting Hansen's forest data with GEE
 
 Two scripts to extract forest cover and forest change from the Hansen's dataset in GEE (Javascript).
 
